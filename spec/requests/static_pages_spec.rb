@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe "Static pages" do
+  let(:appname)     { "Prototype application" }
 
   describe "Home page" do
 
-    it "should have the content 'Prototype App'" do
+    it "should have the content 'Home'" do
       visit '/static_pages/home'
-      expect(page).to have_content('Prototype App')
+      expect(page).to have_content('Home')
     end
 	it "should have the title 'Home'" do
       visit '/static_pages/home'
-      expect(page).to have_title("Prototype App | Home")
+      expect(page).to have_title("#{appname} | Home")
     end
   end
   
@@ -23,7 +24,7 @@ describe "Static pages" do
 	
 	it "should have the title 'Help'" do
       visit '/static_pages/help'
-      expect(page).to have_title("Prototype App | Help")
+      expect(page).to have_title("#{appname} | Help")
     end
   end
   
@@ -36,9 +37,21 @@ describe "Static pages" do
 	
 	it "should have the title 'About'" do
       visit '/static_pages/about'
-      expect(page).to have_title("Prototype App | About")
+      expect(page).to have_title("#{appname} | About")
     end
   end
   
+  describe "Contact page" do
+
+    it "should have the content 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact')
+    end
+	
+	it "should have the title 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_title("#{appname} | Contact")
+    end
+  end
   
 end
