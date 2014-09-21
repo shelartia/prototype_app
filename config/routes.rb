@@ -1,4 +1,5 @@
 PrototypeApp::Application.routes.draw do
+  get "todo_lists/new"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   root  'static_pages#home'
