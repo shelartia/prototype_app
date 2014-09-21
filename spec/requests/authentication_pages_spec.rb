@@ -26,7 +26,7 @@ describe "AuthenticationPages" do
       before { valid_signin(user) }
 
       it { should have_title(user.name) }
-      it { should have_link('Users',       href: users_path) }
+      it { should_not have_link('Users',       href: users_path) }
       it { should have_link('Profile',     href: user_path(user)) }
       it { should have_link('Settings',    href: edit_user_path(user)) }
       it { should have_link('Sign out',    href: signout_path) }
@@ -87,10 +87,6 @@ describe "AuthenticationPages" do
           specify { expect(response).to redirect_to(signin_path) }
         end
         
-        describe "visiting the user index" do
-          before { visit users_path }
-          it { should have_title('Sign in') }
-        end
       end
     end
     

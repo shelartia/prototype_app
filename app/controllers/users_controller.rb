@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user, only: [:index, :edit, :update, :delete]
+  before_action :signed_in_user, only: [:edit, :update, :delete]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:index,:destroy]
   def new
     if signed_in?
       redirect_to(root_url)
@@ -11,7 +11,15 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user=User.find(params[:id])
+    if signed_in? && User.find_by(id: params[:id])
+      if current_user?(User.find(params[:id])) || current_user.admin?
+        @user=User.find(params[:id])
+      else
+        redirect_to(root_url)
+      end
+    else
+      redirect_to(root_url)
+    end
   end
   
   def create
@@ -30,11 +38,19 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    if User.find_by(id: params[:id])
+      @user = User.find(params[:id])
+    else
+      redirect_to(root_url)
+    end
   end
   
   def index
-    @users = User.paginate(page: params[:page])
+    if signed_in?
+      @users = User.paginate(page: params[:page])
+    else
+      redirect_to(root_url)
+    end
   end
   
   def update
@@ -68,11 +84,15 @@ class UsersController < ApplicationController
     end
     
     def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
+      if User.find_by(id: params[:id])
+        @user = User.find(params[:id])
+      end
+        redirect_to(root_url) unless current_user?(@user)
     end
     
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      if signed_in?
+        redirect_to(root_url) unless current_user.admin?
+      end
     end
 end
