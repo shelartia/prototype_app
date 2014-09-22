@@ -15,12 +15,16 @@ describe Project do
   it { should be_valid }
   
   describe "when name is not present" do
-    before { @project.name = " " }
+    before do 
+      @project = Project.new(name: " ", user_id: 1)
+    end
     it { should_not be_valid }
   end
   
   describe "when user_id is not present" do
-    before { @project.user_id = nil }
+    before do 
+      @project = Project.new(name: "Example Project", user_id: nil)
+    end
     it { should_not be_valid }
   end
   
