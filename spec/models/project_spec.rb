@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Project do
   let(:user) { FactoryGirl.create(:user) }
   before do
-    @project = user.projects.build(name: "Example Project", user_id: 1)
+    @project = user.projects.build(name: "Example Project")
   end
 
   subject { @project  }
