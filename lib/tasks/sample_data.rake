@@ -20,7 +20,11 @@ namespace :db do
     10.times do 
       users.each do |user|
         name = "Project#{user.projects.count+1}"
-        user.projects.create!(name: name) 
+        user.projects.create!(name: name)
+        user.projects.each do |project|
+          task_name = "Task #{project.tasks.count+1}"
+          project.tasks.create!(name: task_name)
+        end
       end
     end
   end
