@@ -1,6 +1,8 @@
 PrototypeApp::Application.routes.draw do
-  get "todo_lists/new"
+  get "tasks/new"
   resources :users
+  resources :projects
+  resources :tasks
   resources :sessions, only: [:new, :create, :destroy]
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
@@ -9,6 +11,7 @@ PrototypeApp::Application.routes.draw do
   match '/signup', to: 'users#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/todolists', to: 'projects#index', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -15,5 +15,13 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+    
+    users = User.all(limit: 6)
+    10.times do 
+      users.each do |user|
+        name = "Project#{user.projects.count+1}"
+        user.projects.create!(name: name) 
+      end
+    end
   end
 end

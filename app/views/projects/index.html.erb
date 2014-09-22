@@ -1,0 +1,13 @@
+<% provide(:title, 'My TODO lists') %>
+<h1>TODO LISTS</h1>
+
+
+<ul class="projects">
+  <% @user_projects.each do |p|%>
+  <li><%= p.name %></li>
+  <% end %>
+</ul>
+
+<%= form_for(@project) do |f| %>
+  <%= f.submit "Add TODO list", class: "btn btn-large btn-primary" %>
+<% end %>
