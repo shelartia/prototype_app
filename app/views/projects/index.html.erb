@@ -2,27 +2,14 @@
 <h1>TODO LISTS</h1>
 <body>
 
-<ul class="projects">
-  <% @user_projects.each do |p|%>
-  <% if p.valid? %>
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%=  p.name %></h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% p.tasks.each do |t|%>
-          <li>  <%= t.name %> </li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <% end %>
-</ul>
+<div id="projects">
+  <%= render @projects %>
+</div>
 <div class="center hero-unit">
-<%= form_for(@project) do |f| %>
-  <%= f.submit "Add TODO list", class: "btn btn-large btn-primary" %>
-<% end %>
+
+
+ <%= form_for(Project.new,remote: true) do |f| %>
+   <%= f.submit "Add TODO list", class: "btn btn-large btn-primary" %>
+ <% end %>
 </div>
 </body>

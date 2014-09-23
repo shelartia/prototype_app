@@ -8,17 +8,20 @@ class ProjectsController < ApplicationController
   end
   
   def index
-    @project= current_user.projects.new
-    @project.name=" "
-    @user_projects = current_user.projects
+    @projects = current_user.projects
   end
   
   def create
     name = "Project #{current_user.projects.count+1}"
-    @project = current_user.projects.build(name: name)
-    if @project.save
-      flash[:success] = "Project created!"
-      redirect_to todolists_path
+    @project_new = current_user.projects.build(name: name)
+    if @project_new.save
+      respond_to do |format|
+        format.html 
+        format.js 
+      end
+      #flash[:success] = "Project created!"
+      #redirect_to todolists_path
+      #render @projects
     else
       flash[:error] = @project.errors.full_messages
       redirect_to todolists_path
