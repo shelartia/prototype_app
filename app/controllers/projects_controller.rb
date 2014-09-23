@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
   end
   
   def index
+    @task=Task.new
     @projects = current_user.projects
   end
   
@@ -15,6 +16,7 @@ class ProjectsController < ApplicationController
     name = "Project #{current_user.projects.count+1}"
     @project_new = current_user.projects.build(name: name)
     if @project_new.save
+      @task=Task.new
       respond_to do |format|
         format.html 
         format.js 
